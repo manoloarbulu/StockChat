@@ -17,6 +17,8 @@ namespace StockChat
         {
             //Will receive the message with command and the Stock ID
             //This must invoke the Bot that will consume the stock endpoint
+
+            await Task.CompletedTask;
         }
     }
 }
