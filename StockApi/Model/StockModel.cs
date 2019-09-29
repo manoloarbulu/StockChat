@@ -10,28 +10,28 @@ namespace StockApi.Model
     [DataContract]
     public class StockModel
     {
-        [DataMember(IsRequired = true)]
+        [DataMember(IsRequired = true, Order = 0)]
         public string Symbol { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public string Date { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 2)]
         public string Time { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 3)]
         public string Open { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 4)]
         public string High { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 5)]
         public string Low { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 6)]
         public string Close { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 7)]
         public string Volume { get; set; }
 
         public StockModel(string receivedData)
