@@ -15,12 +15,13 @@ namespace StockChat.Hubs
             await Clients.All.SendAsync("Send", username, message);
         }
 
-        public async void BotMessage(string user, string message)
+        public async void BotMessage(string username, string message)
         {
             //Will receive the message with command and the Stock ID
             //This must invoke the Bot that will consume the stock endpoint
 
-            await Task.CompletedTask;
+            //await Task.CompletedTask;
+            await Clients.All.SendAsync("BotMessage", username, message);
         }
     }
 }
