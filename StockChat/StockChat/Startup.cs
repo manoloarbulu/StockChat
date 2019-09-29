@@ -9,6 +9,7 @@ using StockChat.Data;
 using StockChat.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StockChat.Service;
 
 namespace StockChat
 {
@@ -42,6 +43,7 @@ namespace StockChat
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
+            services.AddHostedService<ConsumeQueueService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

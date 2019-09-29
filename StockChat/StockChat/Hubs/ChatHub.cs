@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
@@ -9,19 +13,32 @@ namespace StockChat.Hubs
     {
         public async Task Send(string username, string message)
         {
-            //if (string.IsNullOrWhiteSpace(message))
-            //    return;
+            if (string.IsNullOrWhiteSpace(message))
+                return;
 
             await Clients.All.SendAsync("Send", username, message);
         }
 
-        public async void BotMessage(string username, string message)
+        public async Task<HttpResponseMessage> BotMessage(string username, string message)
         {
             //Will receive the message with command and the Stock ID
-            //This must invoke the Bot that will consume the stock endpoint
+            var stockId = Regex.Replace(message, @"\s", "").Replace("/stock=","", StringComparison.InvariantCultureIgnoreCase);
+            if (string.IsNullOrWhiteSpace(stockId))
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
 
-            //await Task.CompletedTask;
-            await Clients.All.SendAsync("BotMessage", username, message);
+            //Consume Bot endpoint
+            using(HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("User-Agent","Stock Bot");
+                return await client.GetAsync("https://localhost:44394/api/stock/"+stockId);
+            }
+        }
+
+        internal async Task SendBotMessage(string message)
+        {
+            if (Clients != null)
+                await Clients.All.SendAsync("BotMessage", "Stock Bot", message);
         }
     }
 }

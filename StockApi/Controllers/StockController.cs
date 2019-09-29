@@ -23,7 +23,8 @@ namespace StockApi.Controllers
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException("message", nameof(id));
+                return BadRequest();
+                //throw new ArgumentException("message", nameof(id));
             }
             //Consume Stock Endpoint in async way
             ProcessStockRequest(id);
@@ -36,7 +37,7 @@ namespace StockApi.Controllers
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/CSV"));
-                client.DefaultRequestHeaders.Add("User-Agent", "Test Stock Bot");
+                client.DefaultRequestHeaders.Add("User-Agent", "Test Stock API Consumer");
 
                 //Consumes Endpoint and gets stock data
                 var streamTask = await client.GetStringAsync("https://stooq.com/q/l/?s="+id+"&f=sd2t2ohlcv&h&e=csv");
