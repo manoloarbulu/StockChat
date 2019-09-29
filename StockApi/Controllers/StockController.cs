@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using StockApi.Configuration;
 using StockApi.Model;
 
 namespace StockApi.Controllers
@@ -17,6 +14,13 @@ namespace StockApi.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
+        private QueueSettings Settings { get; set; }
+
+        public StockController(IOptions<QueueSettings> settings)
+        {
+            Settings = settings.Value;
+        }
+
         // GET api/stock/apple.us
         [HttpGet("{id}")]
         public ActionResult Get(string id)
@@ -27,11 +31,11 @@ namespace StockApi.Controllers
                 //throw new ArgumentException("message", nameof(id));
             }
             //Consume Stock Endpoint in async way
-            ProcessStockRequest(id);
+            ProcessStockRequest(id, Settings);
             return Ok();
         }
 
-        private static async void ProcessStockRequest(string id)
+        private static async void ProcessStockRequest(string id, QueueSettings settings)
         {
             using(HttpClient client = new HttpClient())
             {
@@ -46,27 +50,31 @@ namespace StockApi.Controllers
                 var stockData = new StockModel(streamTask);
                 
                 //Send Message to the Queue
-                SendMessageToQueue(stockData);
+                SendMessageToQueue(stockData, settings);
             }
         }
 
-        private static void SendMessageToQueue(StockModel stock)
+        private static void SendMessageToQueue(StockModel stock, QueueSettings settings)
         {
             //Queue location and Queue name should be in configuration
             var serializer = new DataContractSerializer(typeof(StockModel));
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() {
+                HostName = settings.Host,
+                UserName = settings.User,
+                Password = settings.Password
+            };
             using(var connection = factory.CreateConnection())
             {
                 using(var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "StockQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(queue: settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
                     using(var writer = new MemoryStream())
                     {
                         serializer.WriteObject(writer, stock);
                         var message = writer.ToArray();
 
                         channel.BasicPublish(exchange: "",
-                            routingKey: "StockQueue",
+                            routingKey: settings.QueueName,
                             basicProperties: null,
                             body: message);
                     }

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace StockChat.Hubs
 {
-    [Authorize]
     public class ChatHub: Hub
     {
+        [Authorize]
         public async Task Send(string username, string message)
         {
             if (string.IsNullOrWhiteSpace(message))
@@ -19,6 +19,7 @@ namespace StockChat.Hubs
             await Clients.All.SendAsync("Send", username, message);
         }
 
+        [Authorize]
         public async Task<HttpResponseMessage> BotMessage(string username, string message)
         {
             //Will receive the message with command and the Stock ID
@@ -35,7 +36,8 @@ namespace StockChat.Hubs
             }
         }
 
-        internal async Task SendBotMessage(string message)
+        [AllowAnonymous]
+        public async Task SendBotMessage(string message)
         {
             if (Clients != null)
                 await Clients.All.SendAsync("BotMessage", "Stock Bot", message);

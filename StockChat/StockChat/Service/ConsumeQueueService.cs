@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -9,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SignalR.Client;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using StockChat.Hubs;
 
 namespace StockChat.Service
 {
@@ -65,7 +61,8 @@ namespace StockChat.Service
 
         private async void HandleMessage(string content)
         {
-            var connection = new HubConnectionBuilder().WithUrl("/ChatRoom").Build();
+            var connection = new HubConnectionBuilder().WithUrl("https://localhost:44397/ChatRoom").Build();
+            await connection.StartAsync();
             await connection.InvokeAsync("SendBotMessage", content);
             _logger.LogInformation(content);
         }

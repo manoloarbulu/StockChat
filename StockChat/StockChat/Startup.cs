@@ -44,6 +44,9 @@ namespace StockChat
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
             services.AddHostedService<ConsumeQueueService>();
+            //Adding access to HttpContext to Hosted Service
+            services.AddHttpContextAccessor();
+            services.AddSingleton<ConsumeQueueService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
