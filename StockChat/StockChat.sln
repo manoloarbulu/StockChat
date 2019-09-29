@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockChat", "StockChat\StockChat.csproj", "{5EEDE5C0-8855-46C0-B52F-4AD7860DBB1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockChat", "StockChat\StockChat.csproj", "{5EEDE5C0-8855-46C0-B52F-4AD7860DBB1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockApi", "..\StockApi\StockApi.csproj", "{FF5CB942-2DE3-4DE7-8B1E-384C119E8AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5EEDE5C0-8855-46C0-B52F-4AD7860DBB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EEDE5C0-8855-46C0-B52F-4AD7860DBB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EEDE5C0-8855-46C0-B52F-4AD7860DBB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5CB942-2DE3-4DE7-8B1E-384C119E8AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5CB942-2DE3-4DE7-8B1E-384C119E8AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5CB942-2DE3-4DE7-8B1E-384C119E8AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5CB942-2DE3-4DE7-8B1E-384C119E8AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

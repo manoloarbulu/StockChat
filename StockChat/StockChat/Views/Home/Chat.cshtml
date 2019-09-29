@@ -30,12 +30,12 @@
 
         connection.start().catch(err => console.error(err.toString()));
 
+        //Receiver function for common messages
         connection.on('Send', (username, message) => {
-            if (!message.startsWith('/stock='))
-            //Append line to message board
-                appendLine(username, message);
+            appendLine(username, message);
         });
 
+        //Receiver function for Bot messages
         connection.on('BotMessage', (username, message) => {
             appendLine('Bot Message', 'STOCK FROM SERVICE ' + message.replace(/\s+/g, '').replace('/stock=',''));
         });
@@ -51,10 +51,10 @@
                 message = message.trim();
                 //Validate if it's a common message or a Bot message
                 if (!message.replace(/\s+/g, '').startsWith('/stock'))
-                    //Sends Message back to the server
+                    //Sends common message back to the server
                     connection.invoke('Send', username, message);
                 else
-                    //Send Command to the Server bot
+                    //Send command message to the Server bot
                     connection.invoke('BotMessage', username, message.replace(/\s+/g, ''));
             }
             event.preventDefault();
