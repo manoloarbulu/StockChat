@@ -17,6 +17,10 @@ namespace StockApi.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("message", nameof(id));
+            }
             //Consume Stock Endpoint in async way
             ProcessStockRequest(id);
             return Ok();
