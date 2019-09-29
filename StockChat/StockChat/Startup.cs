@@ -10,6 +10,7 @@ using StockChat.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StockChat.Service;
+using StockChat.Configuration;
 
 namespace StockChat
 {
@@ -47,6 +48,8 @@ namespace StockChat
             //Adding access to HttpContext to Hosted Service
             services.AddHttpContextAccessor();
             services.AddSingleton<ConsumeQueueService>();
+
+            services.Configure<QueueSettings>(Configuration.GetSection("RabbitMQ"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
