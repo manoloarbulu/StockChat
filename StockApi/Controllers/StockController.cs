@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -57,7 +57,8 @@ namespace StockApi.Controllers
         private static void SendMessageToQueue(StockModel stock, QueueSettings settings)
         {
             //Queue location and Queue name should be in configuration
-            var serializer = new DataContractSerializer(typeof(StockModel));
+            var serializer = new DataContractJsonSerializer(typeof(StockModel));
+
             var factory = new ConnectionFactory() {
                 HostName = settings.Host,
                 UserName = settings.User,

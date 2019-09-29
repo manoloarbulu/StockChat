@@ -45,10 +45,10 @@ namespace StockChat
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
             services.AddHostedService<ConsumeQueueService>();
-            //Adding access to HttpContext to Hosted Service
-            services.AddHttpContextAccessor();
-            services.AddSingleton<ConsumeQueueService>();
 
+            services.AddHttpContextAccessor();
+            services.AddTransient<ConsumeQueueService>();
+            
             services.Configure<QueueSettings>(Configuration.GetSection("RabbitMQ"));
         }
 

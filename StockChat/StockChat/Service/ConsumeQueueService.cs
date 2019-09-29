@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Microsoft.Extensions.Options;
 using StockChat.Configuration;
 
 namespace StockChat.Service
@@ -16,28 +17,27 @@ namespace StockChat.Service
         private readonly ILogger _logger;
         private IConnection _connection;
         private IModel _channel;
-
-        private QueueSettings Settings { get; set; }
+        private readonly QueueSettings _settings;
 
         public ConsumeQueueService(ILoggerFactory loggerFactory, IOptions<QueueSettings> settings)
         {
             _logger = loggerFactory.CreateLogger<ConsumeQueueService>();
-            Settings = settings.Value;
+            _settings = settings.Value;
             InitService();
         }
 
         private void InitService()
         {
             var factory = new ConnectionFactory() {
-                HostName = Settings.Host,
-                UserName = Settings.User,
-                Password = Settings.Password
+                HostName = _settings.Host,
+                UserName = _settings.User,
+                Password = _settings.Password
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(Settings.QueueExchange, ExchangeType.Topic);
-            _channel.QueueDeclare(queue: Settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind(queue: Settings.QueueName, exchange: Settings.QueueExchange, routingKey: Settings.QueueName, arguments: null);
+            _channel.ExchangeDeclare(_settings.QueueExchange, ExchangeType.Topic);
+            _channel.QueueDeclare(queue: _settings.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind(queue: _settings.QueueName, exchange: _settings.QueueExchange, routingKey: _settings.QueueName, arguments: null);
             _channel.BasicQos(0, 1, false);
 
             _connection.ConnectionShutdown += QueueServiceShutdown;
@@ -64,7 +64,7 @@ namespace StockChat.Service
             consumer.Unregistered += OnConsumerUnregistered;  
             consumer.ConsumerCancelled += OnConsumerConsumerCancelled;
 
-            _channel.BasicConsume(queue: Settings.QueueName, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(queue: _settings.QueueName, autoAck: false, consumer: consumer);
             return Task.CompletedTask;
         }
 

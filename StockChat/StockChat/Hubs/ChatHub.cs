@@ -5,6 +5,10 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using StockChat.Models;
+using System.IO;
+using System.Text;
+using System.Runtime.Serialization.Json;
 
 namespace StockChat.Hubs
 {
@@ -39,6 +43,17 @@ namespace StockChat.Hubs
         [AllowAnonymous]
         public async Task SendBotMessage(string message)
         {
+            if (string.IsNullOrWhiteSpace(message))
+                return;
+
+            var serializer = new DataContractJsonSerializer(typeof(StockModel));
+            StockModel stock = null;
+
+            using(var ms = new MemoryStream(Encoding.UTF8.GetBytes(message)))
+            {
+                stock = (StockModel)serializer.ReadObject(ms);
+            }
+
             if (Clients != null)
                 await Clients.All.SendAsync("BotMessage", "Stock Bot", message);
         }

@@ -37,6 +37,7 @@ namespace StockChat.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "User Name")]
             public string UserName { get; set; }
 
             [Required]
@@ -76,7 +77,7 @@ namespace StockChat.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect(returnUrl+"Home/Chat");
                 }
                 if (result.RequiresTwoFactor)
                 {
