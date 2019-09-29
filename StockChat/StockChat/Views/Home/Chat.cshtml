@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Chat Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="form-group">
+        &nbsp;
+    </div>
+    <div id="chat" style="display:block">
+        <h3 id="spn-nick">@User.Identity.Name</h3>
+        <label for="message">Message:</label>
+        <input type="text" id="message" />
+        <input type="button" id="sendMessage" value="Send" class="send" />
+        <div class="clear">
+        </div>
+        <ul id="messages"></ul>
+    </div>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/lib/signalr/hubs"></script>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/ChatRoom")
+            .build();
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        connection.on('Send', (username, message) => {
+            //Append line to message board
+            appendLine(username, message);
+        });
+
+        document.getElementById('sendMessage').addEventListener('click', event => {
+            let message = $('#message').val();
+            let username = $('#spn-nick').text();
+
+            $('#message').val('');
+
+            //Preveting empty message goes to the chatroom
+            if (message !== null && message !== '') {
+                //Sends Message back to the server
+                connection.invoke('Send', username, message);
+            }
+            event.preventDefault();
+        });
+
+        function appendLine(username, message, color) {
+            let nameElement = document.createElement('strong');
+            nameElement.innerText = `${username}:`;
+
+            let msgElement = document.createElement('em');
+            msgElement.innerText = ` ${message}`;
+
+            let li = document.createElement('li');
+            li.appendChild(nameElement);
+            li.appendChild(msgElement);
+
+            $('#messages').append(li);
+        };
+    </script>
+}
+else
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    </ul>
+}
+

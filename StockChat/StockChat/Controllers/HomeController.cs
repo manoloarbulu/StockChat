@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockChat.Models;
 
@@ -15,8 +16,8 @@ namespace StockChat.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
+        [Authorize]
+        public IActionResult Chat(){ 
             return View();
         }
 

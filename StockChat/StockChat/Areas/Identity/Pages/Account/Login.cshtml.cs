@@ -36,10 +36,6 @@ namespace StockChat.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            //[Required]
-            //[EmailAddress]
-            //public string Email { get; set; }
-
             [Required]
             public string UserName { get; set; }
 
