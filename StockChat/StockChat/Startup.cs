@@ -47,9 +47,9 @@ namespace StockChat
             services.AddHostedService<ConsumeQueueService>();
 
             services.AddHttpContextAccessor();
-            services.AddTransient<ConsumeQueueService>();
             
             services.Configure<QueueSettings>(Configuration.GetSection("RabbitMQ"));
+            ApiConfiguration.ApiUrl = Configuration["ApiBotUrl"];
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

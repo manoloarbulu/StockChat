@@ -71,7 +71,11 @@
             li.appendChild(nameElement);
             li.appendChild(msgElement);
 
-            $('#messages').append(li);
+            $('#messages').prepend(li);
+
+            //Removing li element exceding maximum number
+            if ($('#messages li').length == 50)
+                $('#messages li:last-child').remove();
         };
     </script>
 }

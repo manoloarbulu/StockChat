@@ -9,6 +9,7 @@ using StockChat.Models;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Json;
+using StockChat.Configuration;
 
 namespace StockChat.Hubs
 {
@@ -36,7 +37,7 @@ namespace StockChat.Hubs
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("User-Agent","Stock Bot");
-                return await client.GetAsync("https://localhost:44394/api/stock/"+stockId);
+                return await client.GetAsync(ApiConfiguration.ApiUrl + stockId);
             }
         }
 
@@ -54,9 +55,9 @@ namespace StockChat.Hubs
                 stock = (StockModel)serializer.ReadObject(ms);
             }
 
+            //Sending back stock object to all the clients
             if (Clients != null && stock != null)
                 await Clients.All.SendAsync("BotMessage", "Stock Bot", stock);
-                //await Clients.All.SendAsync("BotMessage", "Stock Bot", message);
         }
     }
 }
