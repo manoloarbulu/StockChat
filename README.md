@@ -1,6 +1,8 @@
 # StockChat Solution
 This Solution have the following projects:
+
 **1. Stock Chat** This application is an ASP.net core MVC application that works as a chat room and could send a command to retrieve a Stock data from an external endpoint.
+
 **2. Stock Api** This application is an ASP.net core API application that works as a endpoint to retrieve Stock data from a external endpoint, the data comes as a CSV file and after being processed is it sent to a **RabbitMQ queue**
 
 ## Requirements
