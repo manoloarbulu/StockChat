@@ -48,7 +48,7 @@ The file *appsettings.json* have the following entries that could be changed acc
    - QueueExchange: RabbitMQ Queue Exchange used for this solution
 3. ApiBotUrl: API Bot URL used for handling the stock command.
 
-There's a self installation file located in (/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
+There's a self installation [StockChat.deploy.cmd](/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
 
 ## Stock Bot
 
@@ -64,4 +64,4 @@ The file *appsettings.json* have the following entries that could be changed acc
    - QueueName: RabbitMQ Queue name used for the solution
 
 
-There's a self installation file located in (/StockChat/StockApi/Deploy/StockApi.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockApi.zip* file.
+There's a self installation file [StockApi.deploy.cmd](/StockChat/StockApi/Deploy/StockApi.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockApi.zip* file.
