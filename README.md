@@ -61,6 +61,7 @@ The file *appsettings.json* have the following entries that could be changed acc
   After hitting "Apply Migrations" button the database will be created or populated with all the data strutures. The will appear the following image:
 
 ![Database creation finished](/DatabaseCreationFinish.png)
+  Then just refresh the page.
 
 * There's a self installation [StockChat.deploy.cmd](/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
 
