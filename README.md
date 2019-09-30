@@ -1,24 +1,25 @@
 # StockChat Solution
 This Solution have the following projects:
-1. **Stock Chat** This application is an ASP.net core MVC application that works as a chat room and could send a command to retrieve a Stock data from an external endpoint.
-2. **Stock Api** This application is an ASP.net core API application that works as a endpoint to retrieve Stock data from a external endpoint, the data comes as a CSV file and after being processed is it sent to a **RabbitMQ queue**
+**1. Stock Chat** This application is an ASP.net core MVC application that works as a chat room and could send a command to retrieve a Stock data from an external endpoint.
+**2. Stock Api** This application is an ASP.net core API application that works as a endpoint to retrieve Stock data from a external endpoint, the data comes as a CSV file and after being processed is it sent to a **RabbitMQ queue**
 
 ## Requirements
 
-1. **RabbitMQ** For proper work of this solution must be installed a RabbitMQ server locally or in a Docker container properly configured. It can be downloaded from the following url [RabbitMQ](https://www.rabbitmq.com/install-windows.html)
+**1. RabbitMQ** For proper work of this solution must be installed a RabbitMQ server locally or in a Docker container properly configured. It can be downloaded from the following url [RabbitMQ](https://www.rabbitmq.com/install-windows.html)
    - **Configuration**: After RabbitMQ being installed must be configured in the following way:
      - Create a Queue with the name **StockQueue**
      - Create a User with the name **stockQueueUser** with access to the virtual host "/" and:
        * Configure regexp: .*
        * Write regexp: .*
        * Read regexp: .*
+       
        Give Access to the topic "/"
        * Write regexp: .*
        * Read regexp: .*
    - Could also import the definitions located in the file [rabbit_2019-9-29.json](rabbit_2019-9-29.json) which matches the used in development and those values are configured in the applications.
    - Also the RabbitMQ could run in a docker, the image is located in [RabbitMQ Docker Image](https://hub.docker.com/_/rabbitmq)
-2. **ASP .Net Core 2.2.0** [Download](https://dotnet.microsoft.com/download/dotnet-core/2.2)
-3. **SQL Server** To create the Identity Framework database but could use the In Memory database.
+**2. ASP .Net Core 2.2.0** [Download](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+**3. SQL Server** To create the Identity Framework database but could use the In Memory database.
 
 ## Projects
 
