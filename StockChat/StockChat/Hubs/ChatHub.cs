@@ -54,8 +54,9 @@ namespace StockChat.Hubs
                 stock = (StockModel)serializer.ReadObject(ms);
             }
 
-            if (Clients != null)
-                await Clients.All.SendAsync("BotMessage", "Stock Bot", message);
+            if (Clients != null && stock != null)
+                await Clients.All.SendAsync("BotMessage", "Stock Bot", stock);
+                //await Clients.All.SendAsync("BotMessage", "Stock Bot", message);
         }
     }
 }

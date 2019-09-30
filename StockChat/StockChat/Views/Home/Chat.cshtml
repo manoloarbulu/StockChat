@@ -36,8 +36,8 @@
         });
 
         //Receiver function for Bot messages
-        connection.on('BotMessage', (username, message) => {
-            appendLine('Bot Message', 'STOCK FROM SERVICE ' + message.replace(/\s+/g, '').replace('/stock=',''));
+        connection.on('BotMessage', (username, stock) => {
+            appendLine('Bot Message', stock.symbol + ' quote is $' + stock.close + ' per share');
         });
 
         document.getElementById('sendMessage').addEventListener('click', event => {
