@@ -5,6 +5,8 @@ This Solution have the following projects:
 
 **2. Stock Api** This application is an ASP.net core API application that works as a endpoint to retrieve Stock data from a external endpoint, the data comes as a CSV file and after being processed is it sent to a **RabbitMQ queue**
 
+**3. UnitTestProject** Small testing project for Stock Api.
+
 ## Requirements
 
 **1. RabbitMQ** For proper work of this solution must be installed a RabbitMQ server locally or in a Docker container properly configured. It can be downloaded from the following url [RabbitMQ](https://www.rabbitmq.com/install-windows.html)
