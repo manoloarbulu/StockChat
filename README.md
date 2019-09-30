@@ -39,6 +39,7 @@ The command syntax is **/stock=stockid**.
 The App is also being configured as a Queue Consumer, because of this all the messages received from the Queue are also handled properly and sent them back to all the clients existing in the Chat Room view. 
 
 ### Configuration
+
 The file *appsettings.json* have the following entries that could be changed according to local requirements.
 1. ConnectionStrings
    - DefaultConnection: This is the default database connection. Could be a SQL Server database or could be a in memory database, to the former the connection string should looks like *Server=**(localdb)\\mssqllocaldb**;Database=aspnet-StockChat;Trusted_Connection=True;MultipleActiveResultSets=true*
@@ -50,7 +51,18 @@ The file *appsettings.json* have the following entries that could be changed acc
    - QueueExchange: RabbitMQ Queue Exchange used for this solution
 3. ApiBotUrl: API Bot URL used for handling the stock command.
 
-There's a self installation [StockChat.deploy.cmd](/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
+### Considerations
+
+* **Database Creation**
+  If the application doesn't connect to the database, it could be because it isn't created or the data entities aren't created yet. If trying to login or register a new user the following image will appear:
+
+![Database creation](/DatabaseCreation.png)
+
+  After hitting "Apply Migrations" button the database will be created or populated with all the data strutures. The will appear the following image:
+
+![Database creation finished](/DatabaseCreationFinish.png)
+
+* There's a self installation [StockChat.deploy.cmd](/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
 
 ## Stock Bot
 
