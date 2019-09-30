@@ -56,11 +56,11 @@ The file *appsettings.json* have the following entries that could be changed acc
 * **Database Creation**
   If the application doesn't connect to the database, it could be because it isn't created or the data entities aren't created yet. If trying to login or register a new user the following image will appear:
 
-![Database creation](/DatabaseCreation.png =561x292)
+![Database creation](/DatabaseCreation.png)
 
   After hitting "Apply Migrations" button the database will be created or populated with all the data strutures. The will appear the following image:
 
-![Database creation finished](/DatabaseCreationFinish.png =553x295)
+![Database creation finished](/DatabaseCreationFinish.png)
   Then just refresh the page.
 
 * There's a self installation [StockChat.deploy.cmd](/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
