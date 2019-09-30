@@ -43,16 +43,19 @@ The file *appsettings.json* have the following entries that could be changed acc
    - QueueExchange: RabbitMQ Queue Exchange used for this solution
 3. ApiBotUrl: API Bot URL used for handling the stock command.
 
-There's a self installation file located in (/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the appsettings.json file is located in the *StockChat.zip* file.
+There's a self installation file located in (/StockChat/StockChat/Deploy/StockChat.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockChat.zip* file.
 
 ##Stock Bot
 
 This application is a REST API application intended to receive a Stock Id and consume an external endpoint to get some Stock data like opening, high, low and close values for a given Stock ID. The data is received in a CSV format and then is parsed and processed as JSON document, this JSON then is sent to a RabbitMQ queue. This application is configured as a publisher of a RabbitMQ queue.
 
-###Configuration###
+###Configuration
 The file *appsettings.json* have the following entries that could be changed according to local requirements.
 1. RabbitMQ
    - Host: RabbitMQ Server host name, for local MQ this should be *localhost*
    - User: RabbitMQ user
    - Password: RabbitMQ user password
    - QueueName: RabbitMQ Queue name used for the solution
+
+
+There's a self installation file located in (/StockChat/StockApi/Deploy/StockApi.deploy.cmd) that will extract all the required files to run the application, the *appsettings.json* file is located in the *StockApi.zip* file.
