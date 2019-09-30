@@ -46,8 +46,6 @@ namespace StockChat
             services.AddSignalR();
             services.AddHostedService<ConsumeQueueService>();
 
-            services.AddHttpContextAccessor();
-            
             services.Configure<QueueSettings>(Configuration.GetSection("RabbitMQ"));
             ApiConfiguration.ApiUrl = Configuration["ApiBotUrl"];
         }

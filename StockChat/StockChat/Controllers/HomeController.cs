@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StockChat.Configuration;
 using StockChat.Models;
 
 namespace StockChat.Controllers
@@ -13,6 +14,9 @@ namespace StockChat.Controllers
     {
         public IActionResult Index()
         {
+            if (string.IsNullOrWhiteSpace(ChatConfiguration.ChatUrl))
+                ChatConfiguration.ChatUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+
             return View();
         }
 

@@ -69,9 +69,12 @@ namespace StockChat.Service
 
         private async void HandleMessage(string content)
         {
-            var connection = new HubConnectionBuilder().WithUrl("https://localhost:44397/ChatRoom").Build();
-            await connection.StartAsync();
-            await connection.InvokeAsync("SendBotMessage", content);
+            if (!string.IsNullOrEmpty(ChatConfiguration.ChatUrl))
+            {
+                var connection = new HubConnectionBuilder().WithUrl(ChatConfiguration.ChatUrl + "/ChatRoom").Build();
+                await connection.StartAsync();
+                await connection.InvokeAsync("SendBotMessage", content);
+            }
             _logger.LogInformation(content);
         }
 
