@@ -18,7 +18,9 @@ This Solution have the following projects:
        * Read regexp: .*
    - Could also import the definitions located in the file [rabbit_2019-9-29.json](rabbit_2019-9-29.json) which matches the used in development and those values are configured in the applications.
    - Also the RabbitMQ could run in a docker, the image is located in [RabbitMQ Docker Image](https://hub.docker.com/_/rabbitmq)
+
 **2. ASP .Net Core 2.2.0** [Download](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+
 **3. SQL Server** To create the Identity Framework database but could use the In Memory database.
 
 ## Projects
